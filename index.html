@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI驅動經濟犯罪偵查攻略</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate & Blue Professional -->
+    <!-- Application Structure Plan: The application is designed as a single-page, scrolling dashboard for a criminal investigator. It starts with the problem's scale ("The Battlefield"), moves to the high-level solution via an interactive workflow diagram ("The Core Strategy"), allows a deep-dive into the enabling technologies with interactive charts and tabs ("The Arsenal"), provides quantitative proof of effectiveness ("The Proof"), and concludes with clear, actionable steps ("Your Mandate"). This thematic, narrative structure is more engaging and intuitive for understanding a complex strategy than a simple report layout. A sticky navigation bar enables quick movement between these logical sections. -->
+    <!-- Visualization & Content Choices: 
+        - Illicit Funds Data -> Inform -> Large stat cards (HTML/CSS) -> Grabs immediate attention on the scale of the problem.
+        - Core AI Workflow -> Organize -> Interactive diagram (HTML/CSS/JS) -> Provides a mental model; clicking an element scrolls to the detailed explanation, creating a guided discovery path.
+        - CuDF vs. Pandas Performance -> Compare -> Interactive Bar Chart (Chart.js) -> Visually demonstrates the critical speed advantage of GPU acceleration, justifying the technology's adoption.
+        - Multi-Agent System (MAS) Accuracy -> Compare -> Grouped Bar Chart (Chart.js) -> Clearly proves the superiority of the MAS approach over single models and human experts.
+        - LLM vs. Traditional System Performance -> Compare -> Radar Chart (Chart.js) -> Offers a multi-dimensional, visually compelling comparison of key performance indicators, highlighting the holistic benefits of LLMs.
+        - AI Paradigms Deep Dive -> Organize/Inform -> Tabbed interface (HTML/CSS/JS) -> Breaks down complex topics (MAS, SFT, RL, RAG) into manageable, user-selected chunks to prevent information overload.
+        - Key Recommendations -> Inform -> Numbered cards (HTML/CSS) -> Presents the final takeaways as a clear, actionable checklist for investigators. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f1f5f9; 
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 450px;
+        }
+        @media (min-width: 640px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .tab-button.active {
+            border-color: #2563eb;
+            color: #2563eb;
+            background-color: #dbeafe;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-slate-800 text-white shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl md:text-2xl font-bold">AI犯罪偵查攻略</h1>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#battlefield" class="hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium">威脅情勢</a>
+                        <a href="#strategy" class="hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium">核心攻略</a>
+                        <a href="#arsenal" class="hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium">技術武庫</a>
+                        <a href="#proof" class="hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium">實證成效</a>
+                        <a href="#mandate" class="hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium">行動建議</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <select id="mobile-nav" class="bg-slate-700 text-white border-slate-600 rounded-md">
+                        <option value="#battlefield">威脅情勢</option>
+                        <option value="#strategy">核心攻略</option>
+                        <option value="#arsenal">技術武庫</option>
+                        <option value="#proof">實證成效</option>
+                        <option value="#mandate">行動建議</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        
+        <section id="battlefield" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 text-center mb-4">第一戰線：認識不斷演變的金融犯罪威脅</h2>
+            <p class="text-center max-w-3xl mx-auto text-slate-600 mb-12">金融犯罪正以前所未有的規模與複雜性衝擊全球經濟。傳統的防禦手段已力不從心，犯罪分子利用最新科技，使非法資金流動更難被偵測。我們正處於一場技術軍備競賽中，採用更智慧、更快速的偵查工具已是刻不容緩。</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <p class="text-5xl font-bold text-blue-600">3.1兆</p>
+                    <p class="text-slate-500 mt-2">美元</p>
+                    <h3 class="font-semibold mt-4 text-lg">2023年全球非法資金流</h3>
+                    <p class="text-sm text-slate-600 mt-2">納斯達克報告指出，巨額非法資金在全球金融體系中流通，凸顯現行防禦體系的巨大壓力。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <p class="text-5xl font-bold text-blue-600">2-5%</p>
+                    <p class="text-slate-500 mt-2">全球GDP</p>
+                    <h3 class="font-semibold mt-4 text-lg">每年洗錢金額佔比</h3>
+                    <p class="text-sm text-slate-600 mt-2">IMF估計每年高達2兆美元的資金被洗淨，嚴重侵蝕全球經濟健康。</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                    <p class="text-5xl font-bold text-blue-600">AI深偽</p>
+                    <p class="text-slate-500 mt-2">新型態詐騙</p>
+                    <h3 class="font-semibold mt-4 text-lg">技術驅動的新威脅</h3>
+                    <p class="text-sm text-slate-600 mt-2">香港發生的2000萬英鎊詐騙案，結合合成影音與網路釣魚，展示了多模態攻擊的複雜性與規模。</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="my-16 border-slate-300">
+
+        <section id="strategy" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 text-center mb-4">核心攻略：新一代AI驅動偵查工作流程</h2>
+            <p class="text-center max-w-3xl mx-auto text-slate-600 mb-12">為了應對挑戰，我們提出一個整合先進AI與GPU加速技術的現代化偵查框架。此流程將數據處理、模型分析與調查產出無縫連接，實現了速度、準確性與可解釋性的全面提升。點擊下方流程圖中的環節，可深入了解其核心技術。</p>
+
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                <a href="#arsenal" class="workflow-step bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition w-full md:w-1/4 border-2 border-transparent hover:border-blue-500 cursor-pointer">
+                    <div class="text-3xl mb-2">📊</div>
+                    <h3 class="font-bold text-lg">數據導入與整合</h3>
+                    <p class="text-sm text-slate-600 mt-1">匯集海量轉存帳、交易紀錄與非結構化數據。</p>
+                </a>
+                <div class="text-2xl text-slate-400 font-bold mx-2 hidden md:block">→</div>
+                <a href="#gpu-acceleration" class="workflow-step bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition w-full md:w-1/4 border-2 border-transparent hover:border-blue-500 cursor-pointer">
+                    <div class="text-3xl mb-2">🚀</div>
+                    <h3 class="font-bold text-lg">GPU加速數據處理</h3>
+                    <p class="text-sm text-slate-600 mt-1">使用cuDF對Pandas數據庫進行百倍加速。</p>
+                </a>
+                <div class="text-2xl text-slate-400 font-bold mx-2 hidden md:block">→</div>
+                 <a href="#ai-paradigms" class="workflow-step bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition w-full md:w-1/4 border-2 border-transparent hover:border-blue-500 cursor-pointer">
+                    <div class="text-3xl mb-2">🧠</div>
+                    <h3 class="font-bold text-lg">AI範式協同分析</h3>
+                    <p class="text-sm text-slate-600 mt-1">多代理、SFT、RL、RAG協同作業，深度挖掘關聯。</p>
+                </a>
+                <div class="text-2xl text-slate-400 font-bold mx-2 hidden md:block">→</div>
+                <a href="#proof" class="workflow-step bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition w-full md:w-1/4 border-2 border-transparent hover:border-blue-500 cursor-pointer">
+                    <div class="text-3xl mb-2">🎯</div>
+                    <h3 class="font-bold text-lg">產出可解釋性洞察</h3>
+                    <p class="text-sm text-slate-600 mt-1">生成高準確度警報、風險評分與可追溯的決策路徑。</p>
+                </a>
+            </div>
+        </section>
+
+        <hr class="my-16 border-slate-300">
+        
+        <section id="arsenal" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 text-center mb-12">技術武庫：驅動偵查革命的核心引擎</h2>
+
+            <div id="gpu-acceleration" class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200 mb-12 scroll-mt-20">
+                <h3 class="text-2xl font-bold text-slate-900 mb-4">🚀 引擎：NVIDIA GPU 加速</h3>
+                <p class="text-slate-600 mb-8">要即時處理海量的金融數據，傳統CPU已達極限。GPU加速是這場革命的計算骨幹，特別是NVIDIA cuDF函式庫，它提供了與常用工具Pandas相容的API，但將數據處理速度提升了數十至數百倍。這意味著過去需要數小時的分析工作，現在幾分鐘內即可完成，為即時監控與決策提供了可能。</p>
+                <div class="chart-container">
+                    <canvas id="cudfVsPandasChart"></canvas>
+                </div>
+            </div>
+
+            <div id="ai-paradigms" class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-slate-200 scroll-mt-20">
+                 <h3 class="text-2xl font-bold text-slate-900 mb-4">🧠 大腦：四大AI範式解析</h3>
+                <p class="text-slate-600 mb-8">單一的AI模型無法應對多變的犯罪手法。我們的戰略核心是整合四種先進的AI範式，讓它們像一個專家團隊一樣協同工作，從不同維度分析數據，實現更高的準確性、適應性和可解釋性。</p>
+                
+                <div>
+                    <div class="border-b border-slate-200">
+                        <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                            <button class="tab-button active" data-tab="mas">多代理編排 (MAS)</button>
+                            <button class="tab-button" data-tab="sft">監督式微調 (SFT)</button>
+                            <button class="tab-button" data-tab="rl">強化學習 (RL)</button>
+                            <button class="tab-button" data-tab="rag">檢索增強生成 (RAG)</button>
+                        </nav>
+                    </div>
+                    <div class="mt-8">
+                        <div id="mas-content" class="tab-content">
+                            <h4 class="font-bold text-lg mb-2">協作智慧：像專家團隊一樣辦案</h4>
+                            <p class="text-slate-600">多代理系統由多個專職AI代理組成，每個代理負責特定任務（如數據清理、行為分析、模式識別）。它們分工合作，對金融風險進行全面評估。這種分散式方法不僅提高了效率和可擴展性，更能同時應對複雜、多面向的詐欺手法，其表現甚至超越單一AI模型和人類專家。</p>
+                        </div>
+                        <div id="sft-content" class="tab-content hidden">
+                            <h4 class="font-bold text-lg mb-2">精準調校：打造領域專家</h4>
+                            <p class="text-slate-600">監督式微調(SFT)是將一個通用的預訓練大語言模型，利用已標記的歷史詐欺案例數據進行「專項訓練」。這讓模型能夠深入理解特定金融犯罪的細微特徵，大幅提高識別準確度，並能快速適應新出現的詐欺模式。如SCAMNET專案，透過SFT將詐欺網站偵測率從22%提升至驚人的95%。</p>
+                        </div>
+                        <div id="rl-content" class="tab-content hidden">
+                             <h4 class="font-bold text-lg mb-2">動態適應：從經驗中學習的偵探</h4>
+                            <p class="text-slate-600">強化學習(RL)讓AI代理在一個模擬環境中透過「試錯」來學習。當它成功識別詐欺時給予「獎勵」，誤判時給予「懲罰」。這使得偵測系統能夠不斷自我優化，動態適應犯罪分子不斷變化的新手法，尤其擅長發現從未見過的「零日」詐欺模式，實現主動預防。</p>
+                        </div>
+                        <div id="rag-content" class="tab-content hidden">
+                            <h4 class="font-bold text-lg mb-2">情境增強：有理有據的決策</h4>
+                            <p class="text-slate-600">檢索增強生成(RAG)解決了AI「黑箱」問題。當模型做決策時，它會先從外部知識庫（如歷史案例、法規條文）中檢索相關資訊作為「證據」，然後基於這些證據生成判斷和解釋。這不僅提高了準確性，更重要的是提供了清晰的決策追蹤路徑，讓調查人員能夠理解並信任AI的結論。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <hr class="my-16 border-slate-300">
+
+        <section id="proof" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 text-center mb-4">實證成效：數據展示AI驅動偵查的卓越性能</h2>
+            <p class="text-center max-w-3xl mx-auto text-slate-600 mb-12">理論必須經過實踐檢驗。以下數據圖表展示了AI驅動方案在關鍵指標上相較於傳統方法和人類專家的顯著優勢。從準確度到效率，新技術範式正在重新定義金融犯罪偵查的標準。</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200">
+                    <h3 class="text-xl font-bold text-center mb-4">多代理系統 vs. 單一模型 vs. 人類專家</h3>
+                    <div class="chart-container">
+                         <canvas id="masAccuracyChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200">
+                     <h3 class="text-xl font-bold text-center mb-4">LLM vs. 傳統系統：綜合性能評估</h3>
+                    <div class="chart-container">
+                         <canvas id="llmPerformanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="my-16 border-slate-300">
+
+        <section id="mandate" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-900 text-center mb-4">行動指令：攻略執行清單</h2>
+            <p class="text-center max-w-3xl mx-auto text-slate-600 mb-12">為了將這些強大技術轉化為實際的偵查能力，我們建議您採取以下戰略步驟。這是一份行動藍圖，旨在引導您和您的團隊建立下一代金融犯罪防禦體系。</p>
+            <div class="space-y-6 max-w-4xl mx-auto">
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 flex items-start space-x-4">
+                    <div class="flex-shrink-0 bg-blue-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold">1</div>
+                    <div>
+                        <h3 class="font-bold text-lg">投資GPU基礎設施</h3>
+                        <p class="text-slate-600 mt-1">將GPU加速視為基礎需求，優先投資硬體及cuDF、NIM等函式庫，這是處理海量數據和部署先進AI的先決條件。</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 flex items-start space-x-4">
+                    <div class="flex-shrink-0 bg-blue-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold">2</div>
+                    <div>
+                        <h3 class="font-bold text-lg">採納多代理系統架構</h3>
+                        <p class="text-slate-600 mt-1">從單一模型轉向模組化、協作式的多代理系統，以整合專業知識，應對多模態的複雜詐欺。</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 flex items-start space-x-4">
+                    <div class="flex-shrink-0 bg-blue-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold">3</div>
+                    <div>
+                        <h3 class="font-bold text-lg">部署可解釋的RAG系統</h3>
+                        <p class="text-slate-600 mt-1">採用RAG解決方案，結合歷史情報和即時上下文，提高準確性的同時，確保決策過程透明、可追溯，以符合監管要求。</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-blue-600 flex items-start space-x-4">
+                    <div class="flex-shrink-0 bg-blue-600 text-white rounded-full h-8 w-8 flex items-center justify-center font-bold">4</div>
+                    <div>
+                        <h3 class="font-bold text-lg">強化人機協作模式</h3>
+                        <p class="text-slate-600 mt-1">將AI定位為強大的輔助工具，自動化例行任務，但高風險決策（如凍結帳戶）必須納入人類調查員的專業判斷。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-slate-800 text-slate-400 mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-sm">
+            <p>&copy; 2025 AI驅動經濟犯罪偵查攻略。僅供內政部警政署教育訓練參考。</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartFontColor = '#1e293b';
+
+            const cudfVsPandasCtx = document.getElementById('cudfVsPandasChart').getContext('2d');
+            new Chart(cudfVsPandasCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['排序 (Sorting)', '分組操作 (GroupBy)', '複雜過濾 (Filtering)'],
+                    datasets: [{
+                        label: 'Pandas (CPU) 處理時間 (秒)',
+                        data: [11.4, 3.46, 9.97],
+                        backgroundColor: 'rgba(100, 116, 139, 0.6)',
+                        borderColor: 'rgba(100, 116, 139, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'cuDF (GPU) 處理時間 (秒)',
+                        data: [0.389, 0.174, 0.081],
+                        backgroundColor: 'rgba(37, 99, 235, 0.6)',
+                        borderColor: 'rgba(37, 99, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            type: 'logarithmic',
+                            title: {
+                                display: true,
+                                text: '處理時間 (秒) - 對數標尺',
+                                color: chartFontColor,
+                            },
+                            ticks: { color: chartFontColor }
+                        },
+                        x: {
+                           ticks: { color: chartFontColor }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'cuDF (GPU) vs Pandas (CPU) 性能比較',
+                            font: { size: 16 },
+                            color: chartFontColor
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y + ' 秒';
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        subtitle: {
+                            display: true,
+                            text: '加速倍數: 排序(29x), 分組(20x), 過濾(123x)',
+                            color: '#475569',
+                            font: {
+                                style: 'italic'
+                            },
+                            padding: {
+                                bottom: 10
+                            }
+                        }
+                    }
+                }
+            });
+
+            const masAccuracyCtx = document.getElementById('masAccuracyChart').getContext('2d');
+            new Chart(masAccuracyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['準確度'],
+                    datasets: [
+                        {
+                            label: '多代理系統 (MAS)',
+                            data: [92.9],
+                            backgroundColor: 'rgba(37, 99, 235, 0.6)',
+                            borderColor: 'rgba(37, 99, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: '人類專家',
+                            data: [90],
+                            backgroundColor: 'rgba(14, 165, 233, 0.6)',
+                            borderColor: 'rgba(14, 165, 233, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: '單一AI模型',
+                            data: [71],
+                             backgroundColor: 'rgba(100, 116, 139, 0.6)',
+                             borderColor: 'rgba(100, 116, 139, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '準確度 (%)',
+                                color: chartFontColor
+                            },
+                           ticks: { color: chartFontColor }
+                        },
+                        y: {
+                           ticks: { color: chartFontColor }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '案件處理準確度比較',
+                            font: { size: 16 },
+                            color: chartFontColor
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const llmPerformanceCtx = document.getElementById('llmPerformanceChart').getContext('2d');
+            new Chart(llmPerformanceCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['詐欺偵測率', '預測準確性', '可解釋性', '即時處理能力', '低誤報率'],
+                    datasets: [{
+                        label: 'AI驅動系統 (LLM)',
+                        data: [95, 92, 85, 90, 97],
+                        fill: true,
+                        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+                        borderColor: 'rgb(37, 99, 235)',
+                        pointBackgroundColor: 'rgb(37, 99, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(37, 99, 235)'
+                    }, {
+                        label: '傳統規則系統',
+                        data: [82, 78, 20, 50, 80],
+                        fill: true,
+                        backgroundColor: 'rgba(100, 116, 139, 0.2)',
+                        borderColor: 'rgb(100, 116, 139)',
+                        pointBackgroundColor: 'rgb(100, 116, 139)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(100, 116, 139)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#cbd5e1' },
+                            grid: { color: '#e2e8f0' },
+                            pointLabels: { 
+                                color: chartFontColor,
+                                font: {
+                                    size: 13
+                                }
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                color: chartFontColor
+                            },
+                             min: 0,
+                             max: 100
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'AI系統 vs. 傳統系統性能雷達圖',
+                            font: { size: 16 },
+                            color: chartFontColor
+                        },
+                    }
+                }
+            });
+            
+            const tabs = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === `${target}-content`) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.addEventListener('change', (e) => {
+                window.location.hash = e.target.value;
+            });
+            
+            const workflowSteps = document.querySelectorAll('.workflow-step');
+            workflowSteps.forEach(step => {
+                step.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = step.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                })
+            })
+        });
+    </script>
+</body>
+</html>
